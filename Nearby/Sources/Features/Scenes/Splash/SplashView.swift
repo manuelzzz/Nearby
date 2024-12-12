@@ -20,7 +20,7 @@ class SplashView: UIView {
 
     let logoImageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "logoImage")
+        image.image = UIImage(named: "nearbyLogo")
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
 
