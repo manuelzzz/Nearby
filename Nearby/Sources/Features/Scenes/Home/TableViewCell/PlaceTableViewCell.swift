@@ -9,122 +9,125 @@ import Foundation
 import UIKit
 
 class PlaceTableViewCell: UITableViewCell {
-    static let indentifier: String = "PlaceTableViewCell"
+	static let identifier = "PlaceTableViewCell"
 
-    override init(
-        style: UITableViewCell.CellStyle,
-        reuseIdentifier: String?
-    ) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupUI()
-    }
+	let itemImageView: UIImageView = {
+		let imageView = UIImageView()
+		imageView.clipsToBounds = true
+		imageView.layer.cornerRadius = 8
+		imageView.contentMode = .scaleAspectFill
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		return imageView
+	}()
 
-    func configure(with place: Place) {
-        itemImageView.image = UIImage(named: place.imageName)
-        titleLabel.text = place.title
-        descriptionLabel.text = place.description
-        ticketLabel.text = "Cupons disponíveis"
-    }
+	let titleLabel: UILabel = {
+		let label = UILabel()
+		label.translatesAutoresizingMaskIntoConstraints = false
+		label.font = Typography.titleSM
+		return label
+	}()
 
-    private func setupUI() {
-        addSubview(containerView)
-        containerView.addSubview(itemImageView)
-        containerView.addSubview(titleLabel)
-        containerView.addSubview(descriptionLabel)
-        containerView.addSubview(ticketIcon)
-        containerView.addSubview(ticketLabel)
+	let descriptionLabel: UILabel = {
+		let label = UILabel()
+		label.font = Typography.textXS
+		label.numberOfLines = 0
+		label.textColor = Colors.gray500
+		label.translatesAutoresizingMaskIntoConstraints = false
+		return label
+	}()
 
-        setupConstraints()
-    }
+	let ticketIcon: UIImageView = {
+		let imageView = UIImageView()
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.contentMode = .scaleAspectFit
+		imageView.image = UIImage(named: "ticket")
+		imageView.tintColor = Colors.redBase
+		return imageView
+	}()
 
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
+	let ticketLabel: UILabel = {
+		let label = UILabel()
+		label.font = Typography.textXS
+		label.textColor = Colors.gray400
+		label.translatesAutoresizingMaskIntoConstraints = false
+		return label
+	}()
 
-            itemImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
-            itemImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            itemImageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            itemImageView.widthAnchor.constraint(equalToConstant: 116),
-            itemImageView.heightAnchor.constraint(equalToConstant: 104),
+	let containerView: UIView = {
+		let view = UIView()
+		view.layer.cornerRadius = 8
+		view.layer.borderWidth = 1
+		view.layer.borderColor = Colors.gray200.cgColor
+		view.translatesAutoresizingMaskIntoConstraints = false
+		return view
+	}()
 
-            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
-            titleLabel.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		setupUI()
+	}
 
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            descriptionLabel.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 8),
-            descriptionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
-            ticketIcon.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 8),
-            ticketIcon.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8),
-            ticketIcon.widthAnchor.constraint(equalToConstant: 13),
-            ticketIcon.heightAnchor.constraint(equalToConstant: 11),
+	private func setupUI() {
+		addSubview(containerView)
+		containerView.addSubview(itemImageView)
+		containerView.addSubview(titleLabel)
+		containerView.addSubview(descriptionLabel)
+		containerView.addSubview(ticketIcon)
+		containerView.addSubview(ticketLabel)
 
-            ticketLabel.centerYAnchor.constraint(equalTo: ticketIcon.centerYAnchor),
-            ticketIcon.leadingAnchor.constraint(equalTo: ticketIcon.trailingAnchor, constant: 4),
-        ])
-    }
+		setupConstraints()
+	}
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+	private func setupConstraints() {
+		NSLayoutConstraint.activate([
+			containerView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+			containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+			containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+			containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
 
-    let itemImageView: UIImageView = {
-        let image = UIImageView()
-        image.contentMode = .scaleAspectFill
-        image.clipsToBounds = true
-        image.layer.cornerRadius = 8
-        image.translatesAutoresizingMaskIntoConstraints = false
+			itemImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
+			itemImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8),
+			itemImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
+			itemImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+			itemImageView.widthAnchor.constraint(equalToConstant: 116),
+			itemImageView.heightAnchor.constraint(equalToConstant: 104),
 
-        return image
-    }()
+			titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
+			titleLabel.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 16),
+			titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
 
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = Typography.titleSM
-        label.translatesAutoresizingMaskIntoConstraints = false
+			descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+			descriptionLabel.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 16),
+			descriptionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
 
-        return label
-    }()
+			ticketIcon.leadingAnchor.constraint(equalTo: itemImageView.trailingAnchor, constant: 16),
+			ticketIcon.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8),
+			ticketIcon.widthAnchor.constraint(equalToConstant: 13),
+			ticketIcon.heightAnchor.constraint(equalToConstant: 11),
 
-    let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = Typography.textSM
-        label.numberOfLines = 0
-        label.textColor = Colors.gray300
-        label.translatesAutoresizingMaskIntoConstraints = false
+			ticketLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
+			ticketLabel.centerYAnchor.constraint(equalTo: ticketIcon.centerYAnchor),
+			ticketLabel.leadingAnchor.constraint(equalTo: ticketIcon.trailingAnchor, constant: 4),
+		])
+	}
 
-        return label
-    }()
+	func configure(with place: Place) {
+		if let url = URL(string: place.cover) {
+			URLSession.shared.dataTask(with: url) { data, _, _ in
+				if let data = data, let image = UIImage(data: data) {
+					DispatchQueue.main.async {
+						self.itemImageView.image = image
+					}
+				}
+			}.resume()
+		}
 
-    let ticketIcon: UIImageView = {
-        let image = UIImageView()
-        image.contentMode = .scaleAspectFit
-        image.tintColor = Colors.redBase
-        image.image = UIImage(named: "ticket")
-        image.translatesAutoresizingMaskIntoConstraints = false
-
-        return image
-    }()
-
-    let ticketLabel: UILabel = {
-        let label = UILabel()
-        label.font = Typography.textXS
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        return label
-    }()
-
-    let containerView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 8
-        view.layer.borderWidth = 1
-        view.layer.borderColor = Colors.gray200.cgColor
-        view.translatesAutoresizingMaskIntoConstraints = false
-
-        return view
-    }()
+		titleLabel.text = place.name
+		descriptionLabel.text = place.description
+		ticketLabel.text = "\(place.coupons) cupons disponíveis"
+	}
 }
